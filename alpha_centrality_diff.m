@@ -31,6 +31,5 @@ function ret_val = alpha_centrality_diff(graph_1, graph_2, num_of_nodes_g1, num_
       a2_itr++;
     end
   end
-  diff
   ret_val = diff / max_limit;
 end

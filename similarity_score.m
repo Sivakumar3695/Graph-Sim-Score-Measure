@@ -21,7 +21,7 @@ function ret_val = similarity_score(adj_mat_1, adj_mat_2, k_order)
   %disp(phi_g1);
   %disp('G1');
   %disp(phi_g2);
-  term_1 = bhat_dist_calc(phi_g1, phi_g2, num_of_nodes_g1, num_of_nodes_g2);
+  term_1 = bhat_dist_calc(phi_g1, phi_g2, num_of_nodes_g1, num_of_nodes_g2, k_order);
   % Term_1 calculation ends-----------------------------
 
   % Term_2 calculation begins---------------------------
@@ -36,7 +36,7 @@ function ret_val = similarity_score(adj_mat_1, adj_mat_2, k_order)
   nncd2 = abs(d2)/log(num_of_nodes_g2);
   %disp(nncd2)
 
-  term_2 = exp(-(abs(sqrt(nncd1) - sqrt(nncd2))));
+  term_2 = exp(-(abs(sqrt(nncd1) - sqrt(nncd2)))/2);
   % Term_2 calculation ends-----------------------------
 
   % Term_3 = third_term1 + third_term2
@@ -46,20 +46,22 @@ function ret_val = similarity_score(adj_mat_1, adj_mat_2, k_order)
   % Term_3 calculation begins---------------------------
   third_term1 = alpha_centrality_diff(adj_mat_1, adj_mat_2, num_of_nodes_g1, num_of_nodes_g2);
   %third_term1 = sqrt(diff / log(2))
-
+  
   % calculate complement for each graph - used for Mayazaki graphs differentiation
-  g1c = graph_complement(adj_mat_1, num_of_nodes_g1);
-  g2c = graph_complement(adj_mat_2, num_of_nodes_g2);
+  g1c = ~(adj_mat_1);
+  g2c = ~(adj_mat_2);
+  %g1c = graph_complement(adj_mat_1, num_of_nodes_g1)
+  %g2c = graph_complement(adj_mat_2, num_of_nodes_g2)
 
   third_term2 = alpha_centrality_diff(g1c, g2c, num_of_nodes_g1, num_of_nodes_g2);
   %third_term2 = sqrt(diff / log(2))
 
-  term_3 = exp(-(third_term1 + third_term2)/2);
+  term_3 = exp(-(third_term1 + third_term2));
   % Term_3 calculation ends----------------------------
 
-  disp(term_1)
-  disp(term_2)
-  disp(term_3)
+  %disp(term_1)
+  %disp(term_2)
+  %disp(term_3)
   % output calculation
   %output = 0.5 * term_1 + 0.4 * term_2 + 0.1 * term_3;
   #output = 0.34 * term_1 + 0.33 * term_2 + 0.33 * term_3;

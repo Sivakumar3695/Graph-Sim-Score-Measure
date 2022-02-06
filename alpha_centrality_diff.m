@@ -18,11 +18,16 @@ function ret_val = alpha_centrality_diff(graph_1, graph_2, num_of_nodes_g1, num_
   max_limit  = max(max(alpha_c1_size), max(alpha_c2_size));
   
   for z = 1 : max_limit
+#    disp(single(p_alpha1(a1_itr)))
+ #   disp(single(p_alpha2(a2_itr)))
     if( a1_itr >  alpha_c1_size || a2_itr > alpha_c2_size )
       diff = diff + 1;
-    elseif p_alpha1(a1_itr) ~= p_alpha2(a2_itr)
-      diff = diff + abs(p_alpha1(a1_itr) - p_alpha2(a2_itr));
-      %diff = diff + 1;
+    elseif (single(p_alpha1(a1_itr)) ~= single(p_alpha2(a2_itr)))
+      #a1_itr
+      #round(p_alpha1(a1_itr) * 10^16) / 10^16 - round(p_alpha2(a2_itr) * 10^16) / 10^16
+      #abs(p_alpha1(a1_itr) - p_alpha2(a2_itr))
+      diff = diff + max(0.01, abs(p_alpha1(a1_itr) - p_alpha2(a2_itr)));
+      #diff = diff + 1;
     end
     if a1_itr <= alpha_c1_size
       a1_itr++;

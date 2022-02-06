@@ -15,16 +15,23 @@ function ret_val = similarity_score(adj_mat_1, adj_mat_2, k_order)
   % phi(G) corresponds to mapping function (mapping_fun) of Graph G in Krylov subspace.
 
   % Term_1 calculation begins --------------------------
-  phi_g1 = mapping_fun( adj_mat_1, num_of_nodes_g1, k_order);
-  phi_g2 = mapping_fun( adj_mat_2, num_of_nodes_g2, k_order);
+  phi_g = ones(num_of_nodes_g1, 1);
+  phi_g1 = mapping_fun( adj_mat_1, num_of_nodes_g1, k_order, phi_g);
+
+  phi_g = ones(num_of_nodes_g2, 1);
+  phi_g2 = mapping_fun( adj_mat_2, num_of_nodes_g2, k_order, phi_g);
   %disp('G1');
   %disp(phi_g1);
   %disp('G1');
   %disp(phi_g2);
-  term_1 = bhat_dist_calc(phi_g1, phi_g2, num_of_nodes_g1, num_of_nodes_g2, k_order);
+  term_1 = bhat_dist_calc(phi_g1, phi_g2, num_of_nodes_g1, num_of_nodes_g2, k_order)
   % Term_1 calculation ends-----------------------------
 
   % Term_2 calculation begins---------------------------
+  tw_1 = gen_signature_euclidean( adj_mat_1, num_of_nodes_g1 );
+  tw_2 = gen_signature_euclidean( adj_mat_2, num_of_nodes_g2 );
+  phi_g1 = mapping_fun( adj_mat_1, num_of_nodes_g1, k_order, tw_1');
+  phi_g2 = mapping_fun( adj_mat_2, num_of_nodes_g2, k_order, tw_2');
   d1 = jensen_div_nature( phi_g1, num_of_nodes_g1, k_order );
   d2 = jensen_div_nature( phi_g2, num_of_nodes_g2, k_order );
 
@@ -36,7 +43,7 @@ function ret_val = similarity_score(adj_mat_1, adj_mat_2, k_order)
   nncd2 = abs(d2)/log(num_of_nodes_g2);
   %disp(nncd2)
 
-  term_2 = exp(-(abs(sqrt(nncd1) - sqrt(nncd2)))/2);
+  term_2 = exp(-(abs(sqrt(nncd1) - sqrt(nncd2)))/2)
   % Term_2 calculation ends-----------------------------
 
   % Term_3 = third_term1 + third_term2
@@ -56,7 +63,7 @@ function ret_val = similarity_score(adj_mat_1, adj_mat_2, k_order)
   third_term2 = alpha_centrality_diff(g1c, g2c, num_of_nodes_g1, num_of_nodes_g2);
   %third_term2 = sqrt(diff / log(2))
 
-  term_3 = exp(-(third_term1 + third_term2));
+  term_3 = exp(-(third_term1 + third_term2)/2)
   % Term_3 calculation ends----------------------------
 
   %disp(term_1)

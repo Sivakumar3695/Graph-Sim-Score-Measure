@@ -7,7 +7,7 @@ function [highly_sim, isomorphic_scores] = file_read_sim_comparison(adj_mat_1, f
       adj_mat_2 = adj_mat_arr.(file_list(j).name);
       sim = similarity_score(adj_mat_1, adj_mat_2, k_order);
       %disp(strcat(file_list(i).name , ':', file_list(j).name))    
-      %disp(strcat('Total Score:', mat_1_file_name , '::', file_list(j).name, '=', num2str(sim)))
+      disp(strcat('Total Score:', mat_1_file_name , '::', file_list(j).name, '=', num2str(sim)))
       if sim < 0 || sim > 1
   %      inc_sim(inc_count) = strcat(file_list(i).name, '-', file_list(j).name);
         %inc_count = inc_count + 1;
@@ -24,7 +24,17 @@ function [highly_sim, isomorphic_scores] = file_read_sim_comparison(adj_mat_1, f
        isomorphic_scores(10) = isomorphic_scores(10) + 1;
       elseif round(sim * 100) <= 95
        isomorphic_scores(11) = isomorphic_scores(11) + 1;
-      elseif round(sim * 100) <= 100
-       isomorphic_scores(12) = isomorphic_scores(12) + 1;
+      #elseif round(sim * 100) <= 100
+      # isomorphic_scores(12) = isomorphic_scores(12) + 1;
+      elseif single(sim) == 1
+        isomorphic_scores(15) = isomorphic_scores(15) + 1;
+      elseif (sim * 1000) < 998
+        isomorphic_scores(12) = isomorphic_scores(12) + 1;
+      elseif (sim * 1000) < 999
+        isomorphic_scores(13) = isomorphic_scores(13) + 1;
+      elseif (sim * 1000) < 1000
+        isomorphic_scores(14) = isomorphic_scores(14) + 1;
+      end
+      %disp(isomorphic_scores)
    end
 end

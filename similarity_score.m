@@ -24,7 +24,7 @@ function ret_val = similarity_score(adj_mat_1, adj_mat_2, k_order)
   %disp(phi_g1);
   %disp('G1');
   %disp(phi_g2);
-  term_1 = bhat_dist_calc(phi_g1, phi_g2, num_of_nodes_g1, num_of_nodes_g2, k_order)
+  term_1 = bhat_dist_calc(phi_g1, phi_g2, num_of_nodes_g1, num_of_nodes_g2, k_order);
   % Term_1 calculation ends-----------------------------
 
   % Term_2 calculation begins---------------------------
@@ -43,7 +43,7 @@ function ret_val = similarity_score(adj_mat_1, adj_mat_2, k_order)
   nncd2 = abs(d2)/log(num_of_nodes_g2);
   %disp(nncd2)
 
-  term_2 = exp(-(abs(sqrt(nncd1) - sqrt(nncd2)))/2)
+  term_2 = exp(-(abs(sqrt(nncd1) - sqrt(nncd2)))/2);
   % Term_2 calculation ends-----------------------------
 
   % Term_3 = third_term1 + third_term2
@@ -63,7 +63,7 @@ function ret_val = similarity_score(adj_mat_1, adj_mat_2, k_order)
   third_term2 = alpha_centrality_diff(g1c, g2c, num_of_nodes_g1, num_of_nodes_g2);
   %third_term2 = sqrt(diff / log(2))
 
-  term_3 = exp(-(third_term1 + third_term2)/2)
+  term_3 = exp(-(third_term1 + third_term2)/2);
   % Term_3 calculation ends----------------------------
 
   %disp(term_1)

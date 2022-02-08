@@ -1,11 +1,12 @@
 function [isomorphic_scores, cur_graph_comp_cnt] = file_read_sim_comparison(adj_mat_1, file_list, adj_mat_arr, start_index,
-    k_order, isomorphic_scores, mat_1_file_name, graph_comp_cnt_max, cur_graph_comp_cnt
+    k_order, isomorphic_scores, mat_1_file_name, graph_comp_cnt_max, cur_graph_comp_cnt, tw_arr
   )
   prev_tens_completion = floor(cur_graph_comp_cnt * 10 / graph_comp_cnt_max);
   for j = start_index : length(file_list)
       %j = 4;
       adj_mat_2 = adj_mat_arr.(file_list(j).name);
-      sim = similarity_score(adj_mat_1, adj_mat_2, k_order);
+      sim = similarity_score(adj_mat_1, adj_mat_2, k_order, tw_arr.(mat_1_file_name), tw_arr.(file_list(j).name));
+      #sim = similarity_score(adj_mat_1, adj_mat_2, k_order, NA, NA);
       %disp(strcat(file_list(i).name , ':', file_list(j).name))    
       %disp(strcat('Total Score:', mat_1_file_name , '::', file_list(j).name, '=', num2str(sim)))
 

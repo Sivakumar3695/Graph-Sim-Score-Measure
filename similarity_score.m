@@ -1,4 +1,4 @@
-function ret_val = similarity_score(adj_mat_1, adj_mat_2, k_order)
+function ret_val = similarity_score(adj_mat_1, adj_mat_2, k_order, tw_1, tw_2)
   % load file - first_graph
   num_of_nodes_g1 = max(size(adj_mat_1));
 
@@ -28,8 +28,12 @@ function ret_val = similarity_score(adj_mat_1, adj_mat_2, k_order)
   % Term_1 calculation ends-----------------------------
 
   % Term_2 calculation begins---------------------------
-  tw_1 = gen_signature_euclidean( adj_mat_1, num_of_nodes_g1 );
-  tw_2 = gen_signature_euclidean( adj_mat_2, num_of_nodes_g2 );
+  if isna(tw_1) || isna(tw_2)
+    #disp("Null TW weight")
+    tw_1 = gen_signature_euclidean( adj_mat_1, num_of_nodes_g1 );
+    tw_2 = gen_signature_euclidean( adj_mat_2, num_of_nodes_g2 );
+  end
+
   phi_g1 = mapping_fun( adj_mat_1, num_of_nodes_g1, k_order, tw_1');
   phi_g2 = mapping_fun( adj_mat_2, num_of_nodes_g2, k_order, tw_2');
   d1 = jensen_div_nature( phi_g1, num_of_nodes_g1, k_order );

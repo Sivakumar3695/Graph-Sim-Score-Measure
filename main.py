@@ -5,12 +5,15 @@ import threading
 
 def start_octave_process(from_arg, to_arg):
     oc = Oct2Py()
-    oc.feval('./maininterface.m', 'AIDS', None, None)
+    oc.feval('./maininterface.m', 'COLLAB', None, None)
 
 
 if __name__ == '__main__':
+    ds_name = 'COLLAB'
     if not os.path.isdir('./output'):
         os.mkdir('./output')
+    if not os.path.isdir('./temp_tw_'+ds_name):
+        os.mkdir('./temp_tw_'+ds_name)
     print('Thread Creation started...')
     t1 = threading.Thread(target=start_octave_process, args=(3, 6,))
     # t2 = threading.Thread(target=start_octave_process, args=(5, 5,))

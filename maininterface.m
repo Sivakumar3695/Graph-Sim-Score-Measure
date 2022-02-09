@@ -37,7 +37,7 @@ function ret = maininterface(DATASET_NAME, from_arg,to_arg)
 
           class_dir = strcat(dataset_dir, directory_ls(k).name, '/')
           [adj_mat_arr, file_list] = get_adj_matrices(class_dir, adj_mat_arr);
-          tw_arr = get_tw_matrices(class_dir, tw_arr, adj_mat_arr);
+          tw_arr = get_tw_matrices(class_dir, tw_arr, adj_mat_arr, DATASET_NAME);
           lim = min(to_arg, length(file_list))
           for i = from_arg : lim
             adj_mat_1 = adj_mat_arr.(file_list(i).name);
@@ -55,7 +55,7 @@ function ret = maininterface(DATASET_NAME, from_arg,to_arg)
                   adj_mat_arr.(sec_class_files(1).name)
                 catch
                   [adj_mat_arr, sec_class_files] = get_adj_matrices(sec_class_dir, adj_mat_arr);
-                  tw_arr = get_tw_matrices(sec_class_dir, tw_arr, adj_mat_arr);
+                  tw_arr = get_tw_matrices(sec_class_dir, tw_arr, adj_mat_arr, DATASET_NAME);
                 end_try_catch
                 [c1_isomorphic_scores, cur_graph_comp_cnt] = file_read_sim_comparison(adj_mat_1, sec_class_files, adj_mat_arr, 3, k_order,
                  c1_isomorphic_scores, file_list(i).name, graph_comp_cnt_max, cur_graph_comp_cnt, tw_arr);

@@ -5,7 +5,7 @@ import threading
 
 def start_octave_process(from_arg, to_arg):
     oc = Oct2Py()
-    oc.feval('./maininterface.m', 'MSRC_9', 3, 4)
+    oc.feval('./maininterface.m', 'AIDS', None, None)
 
 
 if __name__ == '__main__':

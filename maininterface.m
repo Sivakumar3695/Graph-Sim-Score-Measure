@@ -66,10 +66,12 @@ function ret = maininterface(DATASET_NAME, from_arg,to_arg)
 
         toc;
     else
-      adj_mat_1 = importdata(strcat('./DS/Dummy/Dodecahedron.txt'));
-      adj_mat_2 = importdata(strcat('./DS/Dummy/Desargues.txt'));
+      adj_mat_1 = importdata(strcat('./DS/COLLAB/Class_1/1.txt'));
+      adj_mat_2 = importdata(strcat('./DS/COLLAB/Class_1/2.txt'));
 
-      sim = similarity_score(adj_mat_1, adj_mat_2, k_order);
+      tw_1 = gen_signature_euclidean(adj_mat_1, max(size(adj_mat_1)));
+      tw_2 = gen_signature_euclidean(adj_mat_2, max(size(adj_mat_2)));
+      sim = similarity_score(adj_mat_1, adj_mat_2, k_order, tw_1, tw_2);
       disp(strcat('Total Score:' , num2str(sim)))
     end
 

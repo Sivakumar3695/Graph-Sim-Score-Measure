@@ -57,7 +57,7 @@ function ret_val = similarity_score(adj_mat_1, adj_mat_2, k_order, tw_1, tw_2)
   % Term_3 calculation begins---------------------------
   third_term1 = alpha_centrality_diff(adj_mat_1, adj_mat_2, num_of_nodes_g1, num_of_nodes_g2);
   %third_term1 = sqrt(diff / log(2))
-  
+
   % calculate complement for each graph - used for Mayazaki graphs differentiation
   g1c = ~(adj_mat_1);
   g2c = ~(adj_mat_2);
